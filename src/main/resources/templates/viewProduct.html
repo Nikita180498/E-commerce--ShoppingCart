@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <title>BABY SHOP</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>        .container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.my-class {
+    background: $blue-100;
+    backdrop-filter: blur(5px);
+}
+
+.nounderline{
+text-decoration:none !important;
+}
+
+li:hover a {
+
+box-sizing: border-box;
+width: 100%;
+border: solid #F5F5F5 5px;
+padding: 5px;
+border-top: 0px;
+border-left: 0px;
+border-right: 0px;
+}
+
+li:hover {
+    background: #e3f2fd;;
+}
+</style>
+</head>
+<body>
+
+
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark w3-bar w3-black" >
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img src="/images/babylogo.jpg" style="width:50px;" class="rounded-pill">
+        </a>
+        <a class="navbar-brand" href="/">BABY SHOP</a>
+        <!--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+        <!--            <span class="navbar-toggler-icon"></span>-->
+        <!--        </button>-->
+        <div class="collapse navbar-collapse header" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 menu">
+                <li class="nav-item">
+                    <a class="nav-link active w3-bar-item w3-button" aria-current="page" th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  w3-bar-item w3-button" th:href="@{/shop}">Shop</a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link  w3-bar-item w3-button" th:href="@{/about}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  w3-bar-item w3-button" th:href="@{/contact}">Contact</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link w3-bar-item w3-button" th:href="@{/cart}">My Cart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link w3-bar-item w3-button" th:href="@{/orderHistory}">My Orders</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link w3-bar-item w3-button" sec:authorize="isAnonymous()" th:href="@{/login}">Login/Register</a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link w3-bar-item w3-button" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-5 d-flex justify-content-center">
+            <img class="mt-5" height="300px" width="300px" src="" th:src="@{${'/productImages/' + product.imageName}}"
+                 alt="">
+        </div>
+        <div class="col-sm-7 mt-5">
+            <h2 th:text="${product.name}"></h2>
+            <p th:text="${product.category.name}"></p>
+            <h2>₹ <span th:text="${product.price}"></span></h2>
+            <h5>Size:
+                <spna th:text="${product.size}"></spna>
+            </h5>
+            <h5>Color:
+                <spna th:text="${product.color}"></spna>
+            </h5>
+            <h5>Description:
+                <span th:text="${product.description}"></span>
+            </h5>
+            <form th:action="@{/addToCart/{id}(id = ${product.id})}" method="post">
+                </br>
+                    <span ><input style="width:120px;height:30px;" class="form-control" value="1" min="1" type="number" name="quantity"></span>
+                </br>
+                <button type="submit" class="btn btn-primary">
+                    Add to cart
+                </button>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+
+
+</html>
